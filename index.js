@@ -22,7 +22,7 @@ cache.sync = function(url, cacheDir, cacheUri){
   var ext = path.extname(url);
   var hash = md5.update(url).digest('hex');
   var cachePath = path.join(cacheDir, hash + ext);
-  var uri = path.join(cacheUri || '', hash + ext);
+  var uri = path.join(cacheUri || cacheDir, hash + ext);
 
   var stat;
 

@@ -69,6 +69,13 @@ describe('Cache', function() {
       });
     });
 
+    it('returns the correct cached path', function() {
+      deleteFolderRecursive(cacheDir);
+      var cachedPath = cache.sync(cacheUrl, cacheDir);
+
+      expect(cachedPath).to.equal(cacheFile);
+    });
+
     it('returns the correct public uri', function() {
       deleteFolderRecursive(cacheDir);
       var publicUri = cache.sync(cacheUrl, cacheDir, '/cache');
