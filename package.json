@@ -1,0 +1,31 @@
+{
+  "name": "local-url-cache",
+  "version": "1.0.0",
+  "description": "Downloads and stores url content locally for future requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weyforth/node-local-url-cache.git"
+  },
+  "keywords": [
+    "cache"
+  ],
+  "author": "Mike Farrow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weyforth/node-local-url-cache/issues"
+  },
+  "homepage": "https://github.com/weyforth/node-local-url-cache#readme",
+  "devDependencies": {
+    "chai": "3.4.1",
+    "mocha": "2.3.4"
+  },
+  "dependencies": {
+    "mkdirp": "0.5.1",
+    "request": "2.67.0",
+    "deasync": "0.1.4"
+  }
+}
