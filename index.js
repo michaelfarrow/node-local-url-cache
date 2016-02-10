@@ -41,8 +41,8 @@ var createCache = function(url, cacheDir, cacheUri, callback){
     }
   }
 
-  // if async, return the original url, otherwise return the cached uri
-  return callback ? url : uri;
+  // return the cache uri if sync or cache file exists, otherwise return the original url
+  return !callback || stat ? uri : url;
 }
 
 var cache = {};

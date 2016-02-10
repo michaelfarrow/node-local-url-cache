@@ -115,9 +115,13 @@ describe('Cache', function() {
       });
     });
 
-    it('returns the correct sync url', function() {
+    it('returns the correct sync url on first cache, cached uri on second', function(done) {
       deleteFolderRecursive(cacheDir);
-      var url = cache.async(cacheUrl, cacheDir, null, function(){});
+      var url = cache.async(cacheUrl, cacheDir, null, function(){
+        var uri = cache.async(cacheUrl, cacheDir, null, function(){});
+        expect(uri).to.equal(cacheFilename);
+        done();
+      });
       expect(url).to.equal(cacheUrl);
     });
 
