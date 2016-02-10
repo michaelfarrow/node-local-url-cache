@@ -1,6 +1,6 @@
 {
   "name": "local-url-cache",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Downloads and stores url content locally for future requests",
   "main": "index.js",
   "scripts": {
