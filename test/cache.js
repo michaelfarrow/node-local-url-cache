@@ -69,18 +69,56 @@ describe('Cache', function() {
       });
     });
 
-    it('returns the correct cached path', function() {
-      deleteFolderRecursive(cacheDir);
-      var cachedPath = cache.sync(cacheUrl, cacheDir);
-
-      expect(cachedPath).to.equal(cacheFile);
-    });
-
     it('returns the correct public uri', function() {
       deleteFolderRecursive(cacheDir);
       var publicUri = cache.sync(cacheUrl, cacheDir, '/cache');
 
       expect(publicUri).to.equal(path.join('/cache', cacheFilename));
+    });
+
+  });
+
+
+  describe('Async', function() {
+
+    it('creates a local file with the correct filename', function(done) {
+      deleteFolderRecursive(cacheDir);
+      cache.async(cacheUrl, cacheDir, null, function(){
+        var stat;
+        try {
+          stat = fs.statSync(cacheFile);
+        } catch (e) {
+          stat = false;
+        }
+
+        expect(stat).to.not.be.false;
+        done();
+      });
+    });
+
+    it('creates a local file with the correct content', function(done) {
+      deleteFolderRecursive(cacheDir);
+      cache.async(cacheUrl, cacheDir, null, function(){
+        request(cacheUrl, function (error, response, body) {
+          var fileContents = fs.readFileSync(cacheFile, 'utf8');
+          expect(fileContents).to.equal(body);
+          done();
+        });
+      });
+    });
+
+    it('returns the correct public uri', function(done) {
+      deleteFolderRecursive(cacheDir);
+      cache.async(cacheUrl, cacheDir, '/cache', function(publicUri){
+        expect(publicUri).to.equal(path.join('/cache', cacheFilename));
+        done();
+      });
+    });
+
+    it('returns the correct sync url', function() {
+      deleteFolderRecursive(cacheDir);
+      var url = cache.async(cacheUrl, cacheDir, null, function(){});
+      expect(url).to.equal(cacheUrl);
     });
 
   });
