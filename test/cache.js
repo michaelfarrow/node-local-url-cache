@@ -29,16 +29,16 @@ describe('Cache', function() {
   describe('Directory', function(){
     it('creates the local cache directory', function(){
       deleteFolderRecursive(cacheDir);
-      cache.createCacheDir(cacheDir);
+      cache.ensureCacheDir(cacheDir, function() {
+        var stat;
+        try {
+          stat = fs.statSync(cacheDir);
+        } catch (e) {
+          stat = false;
+        }
 
-      var stat;
-      try {
-        stat = fs.statSync(cacheDir);
-      } catch (e) {
-        stat = false;
-      }
-
-      expect(stat).to.not.be.false;
+        expect(stat).to.not.be.false;
+      });
     });
   });
 
@@ -109,20 +109,10 @@ describe('Cache', function() {
 
     it('returns the correct public uri', function(done) {
       deleteFolderRecursive(cacheDir);
-      cache.async(cacheUrl, cacheDir, '/cache', function(publicUri){
+      cache.async(cacheUrl, cacheDir, '/cache', function(err, publicUri){
         expect(publicUri).to.equal(path.join('/cache', cacheFilename));
         done();
       });
-    });
-
-    it('returns the correct sync url on first cache, cached uri on second', function(done) {
-      deleteFolderRecursive(cacheDir);
-      var url = cache.async(cacheUrl, cacheDir, null, function(){
-        var uri = cache.async(cacheUrl, cacheDir, null, function(){});
-        expect(uri).to.equal(cacheFilename);
-        done();
-      });
-      expect(url).to.equal(cacheUrl);
     });
 
   });
