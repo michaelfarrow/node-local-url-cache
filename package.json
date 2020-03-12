@@ -24,7 +24,7 @@
     "mocha": "2.3.4"
   },
   "dependencies": {
-    "mkdirp": "0.5.1",
+    "mkdirp": "1.0.0",
     "request": "2.67.0",
     "deasync": "0.1.4"
   }
